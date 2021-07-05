@@ -1,25 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import { useQuery, gql } from '@apollo/client';
+import { useState } from 'react';
+
+import { Cell, TableRawData } from './types/TableTypes';
+import Table from './Components/Table';
+
+const GET_CELLS_QUERY = gql`
+  {
+    headers {
+      header_id
+      header_name
+    }
+    rows {
+      row_id
+    }
+    values {
+      header_id
+      row_id
+      value
+    }
+  }
+`;
+
 function App() {
+  const { loading, error, data } = useQuery<TableRawData>(GET_CELLS_QUERY);
+
+  if (loading) {
+    return <p>Loading</p>; // TODO: change to spinner
+  }
+
+  if (error) {
+    return <p>We have an error</p>;
+  }
+
+  console.log(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="App">{data && data.headers && <Table data={data} />}</div>
   );
 }
 

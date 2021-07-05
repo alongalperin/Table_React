@@ -1,0 +1,20 @@
+.Table__Container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: 95vw;
+  margin: auto;
+}
+
+.Table__Cell {
+  grid-row: 1;
+  border: solid 1px black;
+}
+
+.Table__Header__Cell {
+  background-color: red;
+}
+
+.Table__Cell__Empty {
+  background-color: lightgray;
+}
