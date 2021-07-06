@@ -5,8 +5,6 @@ import { CellType } from '../types/TableTypes';
 import Cell from './Cell';
 import EmptyCell from './EmptyCell';
 
-import { getMaxCellsId } from '../utils/utils';
-
 type BodyProps = {
   cells: CellType[];
   rows: { row_id: number }[];

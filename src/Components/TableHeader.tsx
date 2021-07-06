@@ -5,8 +5,6 @@ import { HeaderCellType } from '../types/TableTypes';
 import Cell from './Cell';
 import EmptyCell from './EmptyCell';
 
-import { getMaxCellsId } from '../utils/utils';
-
 type HeaderProps = {
   cells: HeaderCellType[];
   amountOfColumns: number;
@@ -24,8 +22,6 @@ const TableHeader: FunctionComponent<HeaderProps> = ({
   cells,
   amountOfColumns,
 }: HeaderProps) => {
-  const sortedHeaders = _.orderBy(cells, ['header_id'], ['asc']);
-
   const renderHeader = () => {
     const dict = headerCellsListToDict(cells);
 
