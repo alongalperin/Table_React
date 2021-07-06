@@ -1,4 +1,4 @@
-export type Cell = {
+export type CellType = {
   header_id: number;
   row_id: number;
   value: string;
@@ -12,5 +12,5 @@ export type HeaderCellType = {
 export type TableRawData = {
   headers: HeaderCellType[];
   rows: { row_id: number }[];
-  values: Cell[];
+  values: CellType[];
 };

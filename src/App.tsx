@@ -1,34 +1,17 @@
 import React from 'react';
 import './App.css';
 
-import { useQuery, gql } from '@apollo/client';
-import { useState } from 'react';
-
-import { Cell, TableRawData } from './types/TableTypes';
+import { useQuery } from '@apollo/client';
+import { GET_CELLS_QUERY } from './queries/queries';
+import { TableRawData } from './types/TableTypes';
 import Table from './Components/Table';
-
-const GET_CELLS_QUERY = gql`
-  {
-    headers {
-      header_id
-      header_name
-    }
-    rows {
-      row_id
-    }
-    values {
-      header_id
-      row_id
-      value
-    }
-  }
-`;
+import Spinner from './Components/ui/Spinner';
 
 function App() {
   const { loading, error, data } = useQuery<TableRawData>(GET_CELLS_QUERY);
 
   if (loading) {
-    return <p>Loading</p>; // TODO: change to spinner
+    return <Spinner />;
   }
 
   if (error) {
@@ -38,7 +21,11 @@ function App() {
   console.log(data);
 
   return (
-    <div className="App">{data && data.headers && <Table data={data} />}</div>
+    <div className="App">
+      <div className="App__Inner">
+        {data && data.headers && <Table data={data} />}
+      </div>
+    </div>
   );
 }
 

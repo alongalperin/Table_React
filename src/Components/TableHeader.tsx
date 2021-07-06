@@ -9,10 +9,11 @@ import { getMaxCellsId } from '../utils/utils';
 
 type HeaderProps = {
   cells: HeaderCellType[];
+  amountOfColumns: number;
 };
 
 const headerCellsListToDict = (cells: HeaderCellType[]) => {
-  const dict: { [key: number]: string } = {}; //TODO: add type
+  const dict: { [key: number]: string } = {};
   for (const cell of cells) {
     dict[cell.header_id] = cell.header_name;
   }
@@ -21,19 +22,21 @@ const headerCellsListToDict = (cells: HeaderCellType[]) => {
 
 const TableHeader: FunctionComponent<HeaderProps> = ({
   cells,
+  amountOfColumns,
 }: HeaderProps) => {
-  const generateHeader = () => {
+  const sortedHeaders = _.orderBy(cells, ['header_id'], ['asc']);
+
+  const renderHeader = () => {
     const dict = headerCellsListToDict(cells);
-    const numberOfColumns = getMaxCellsId(cells);
 
     const headerCells: React.ReactNode[] = [];
-    for (let i = 0; i <= numberOfColumns; i++) {
+    for (let i = 0; i <= amountOfColumns; i++) {
       let cell: React.ReactNode;
       if (dict[i]) {
         const cellHeader = dict[i];
-        cell = <Cell data={cellHeader} />;
+        cell = <Cell data={cellHeader} className={'Table__Header__Cell'} />;
       } else {
-        cell = <EmptyCell />;
+        cell = <EmptyCell className={'Table__Cell__Empty-Header'} />;
       }
       headerCells.push(cell);
     }
@@ -41,7 +44,7 @@ const TableHeader: FunctionComponent<HeaderProps> = ({
     return headerCells;
   };
 
-  return <>{generateHeader()}</>;
+  return <>{renderHeader()}</>;
 };
 
 export default TableHeader;

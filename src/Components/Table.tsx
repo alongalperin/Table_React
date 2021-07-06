@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import _ from 'lodash';
 
 import { TableRawData } from '../types/TableTypes';
 
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
+import { getMaxCellsId } from '../utils/utils';
 
 import './table.scss';
 
@@ -13,11 +13,15 @@ type TableProps = {
 };
 
 const Table: FunctionComponent<TableProps> = ({ data }: TableProps) => {
-  const sortedHeaders = _.orderBy(data.headers, ['header_id'], ['asc']);
+  const amountOfColumns = getMaxCellsId(data.headers);
+
+  const tableStyle = {
+    gridTemplateColumns: `repeat(${amountOfColumns + 1}, 1fr)`,
+  };
 
   return (
-    <div className="Table__Container">
-      <TableHeader cells={sortedHeaders} />
+    <div style={tableStyle} className="Table__Container">
+      <TableHeader amountOfColumns={amountOfColumns} cells={data.headers} />
       <TableBody cells={data.values} rows={data.rows} />
     </div>
   );

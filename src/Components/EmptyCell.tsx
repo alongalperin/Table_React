@@ -1,9 +1,15 @@
 import React, { FunctionComponent } from 'react';
 
+import Cell from "./Cell";
+
 import './table.scss';
 
-const EmptyCell: FunctionComponent<{}> = ({}) => {
-  return <div className="Table__Cell Table__Cell__Empty "></div>;
+type Props = {
+  className?: string;
+};
+
+const EmptyCell: FunctionComponent<Props> = ({ className }: Props) => {
+  return <Cell data={""}/>
 };
 
 export default EmptyCell;
