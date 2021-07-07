@@ -22,11 +22,9 @@ const TableBody: FunctionComponent<BodyProps> = ({
 
   let i = 0;
   for (const cell of cells) {
-    console.log('i ', i);
     i += 1;
     cellsDict[`${cell.row_id}, ${cell.header_id}`] = cell.value;
   }
-  console.log(cellsDict);
 
   const renderTableBody = () => {
     const rows: React.ReactNode[] = [];

@@ -18,8 +18,6 @@ function App() {
     return <p>We have an error</p>;
   }
 
-  console.log(data);
-
   return (
     <div className="App">
       <div className="App__Inner">
