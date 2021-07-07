@@ -26,20 +26,26 @@ const TableBody: FunctionComponent<BodyProps> = ({
     cellsDict[`${cell.row_id}, ${cell.header_id}`] = cell.value;
   }
 
+  const renderTableRow = (rowIndex: number) => {
+    const rowCells: React.ReactNode[] = [];
+    let cellHelper;
+
+    for (let headerIndex = 0; headerIndex <= 17; headerIndex++) {
+      cellHelper = cellsDict[`${rowIndex}, ${headerIndex}`];
+      if (cellHelper) {
+        rowCells.push(<Cell data={cellHelper} />);
+      } else {
+        rowCells.push(<EmptyCell />);
+      }
+    }
+
+    return rowCells;
+  };
+
   const renderTableBody = () => {
     const rows: React.ReactNode[] = [];
-    let cellHelper;
     for (let rowIndex = 0; rowIndex <= numberOfRows; rowIndex++) {
-      const row: React.ReactNode[] = [];
-      for (let headerIndex = 0; headerIndex <= 17; headerIndex++) {
-        cellHelper = cellsDict[`${rowIndex}, ${headerIndex}`];
-        if (cellHelper) {
-          row.push(<Cell data={cellHelper} />);
-        } else {
-          row.push(<EmptyCell />);
-        }
-      }
-      rows.push(row);
+      const row: React.ReactNode[] = renderTableRow(rowIndex);
     }
     return rows;
   };
