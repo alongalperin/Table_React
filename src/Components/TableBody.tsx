@@ -46,6 +46,7 @@ const TableBody: FunctionComponent<BodyProps> = ({
     const rows: React.ReactNode[] = [];
     for (let rowIndex = 0; rowIndex <= numberOfRows; rowIndex++) {
       const row: React.ReactNode[] = renderTableRow(rowIndex);
+      rows.push(row);
     }
     return rows;
   };
